@@ -28,12 +28,4 @@ app.get('/about', middleware, (req, res)=>{
     res.send('about page');
 })
 
-app.get('/login', (req, res)=>{
-    res.send('login page');
-})
-
-app.get('/signup', (req, res)=>{
-    res.send('signup page');
-})
-
 app.listen(3000, ()=> console.log(`Server running on port ${PORT}`));
