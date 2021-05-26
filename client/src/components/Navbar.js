@@ -1,40 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {NavLink} from 'react-router-dom';
 import '../css/navbar.css';
+const navItems = [
+    {
+        button: 'Home',
+        link: '/'
+    },
+    {
+        button: 'About',
+        link: '/about'
+    },
+    {
+        button: 'Contact',
+        link: '/contact'
+    },
+    {
+        button: 'Login',
+        link: '/login'
+    },
+    {
+        button: 'Sign Up',
+        link: '/signup'
+    }
+];
 
 function Navbar() {
-    const navItems = [
-        {
-            button: 'Home',
-            link: '/'
-        },
-        {
-            button: 'About',
-            link: '/about'
-        },
-        {
-            button: 'Contact',
-            link: '/contact'
-        },
-        {
-            button: 'Login',
-            link: '/login'
-        },
-        {
-            button: 'Sign Up',
-            link: '/signup'
-        }
-    ];
+    let [isClicked, setIsClicked] = useState(false);
+    let activeLinkStyle = {
+        color: "white",
+    }
     return (
         <>
         <div className="navbar">
            <h2 className = "logo">Win</h2>
-           <ul className = "nav_links">
+           <ul className = "nav_links" style = {{transform: isClicked? "translatex(0%)": ""}}>
                {
                    navItems.map((item, index) =>
-                    <a key = {index} href={item.link}><li>{item.button}</li></a>
+                    <NavLink exact key = {index} 
+                    activeClassName = "active_class"
+                    to={item.link}>
+                        <li className = {item.link === '/signup'? "signup": ''}>{item.button}</li>
+                    </NavLink>
                  )
                }
            </ul>
+           <i onClick = {()=> {setIsClicked(!isClicked); console.log("click")}} className="fas fa-bars menu"></i>
         </div>
         </>
     )
