@@ -36,4 +36,12 @@
         color: darkslategrey;
         font-size: x-large;
     }
+
+    #signupFormDiv form{
+        width: 95%;
+    }
+
+    #loginFormDiv form{
+        width: 95%;
+    }
   }

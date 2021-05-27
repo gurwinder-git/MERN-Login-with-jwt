@@ -10,7 +10,7 @@
     justify-content: space-between;
     padding: 0rem 8rem;
     background-color: lightcoral;
-    height: 4rem;
+    height: 3rem;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
     z-index: 100;
 }
@@ -54,7 +54,7 @@ ul a li:hover {
 }
 
 .active_class li {
-    border-bottom: 2px solid darkslategrey;
+    /* border-bottom: 2px solid darkslategrey; */
     color: whitesmoke;
     text-decoration: none;
     transition: color border-bottom .5sec;

@@ -1,0 +1,57 @@
+#signupFormDiv form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    /* border: 1px solid #9e9e9e; */
+    padding: 1em;
+    margin: auto;
+    background-color: white;
+    border-radius: .5em;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+#signupFormDiv h2 {
+    color: #909090;
+    text-align: center;
+    margin: 1.2rem 0rem;
+}
+
+
+#signupFormDiv form input {
+    margin-bottom: 1em;
+    padding: .2em .4em;
+    outline: none;
+    font-size: large;
+    border: 1px solid #bfbfbf;
+    border-radius: .2rem;
+}
+#signupFormDiv form label {
+    color: #2a4646;
+    margin: 2px;
+}
+
+
+#signupFormDiv form input:focus {
+    box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(0 36 167 / 11%) 0px 2px 16px 0px;
+    transition: box-shadow 150ms ease-in-out;
+}
+
+#signupFormDiv form button {
+    padding: .7rem 0rem .8rem 0rem;
+    font-weight: 600;
+    font-size: medium;
+    color: whitesmoke;
+    border: none;
+    background-color: steelblue;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+#signupFormDiv form button:hover{
+    background-color: rgb(60, 109, 148) ;
+    transition: background-color 150ms ease-in-out;
+}
+#signupFormDiv form button:active{
+    border: 1px solid rgb(88, 88, 88);
+}

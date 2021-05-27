@@ -6,12 +6,13 @@ import Contact from './components/Contact';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import ErrorPage from './components/ErrorPage';
+import Footer from './components/Footer';
 import {Route, Switch} from 'react-router-dom';
 import './App.css';
 import './css/mobile.css'
 
 function App() {
-  return (
+  return (<>
     <div className="app">
       <Navbar/>
       <Switch>
@@ -23,6 +24,8 @@ function App() {
         <Route component = {ErrorPage}/>
       </Switch>
     </div>
+    <Footer/>
+    </>
   );
 }
 
