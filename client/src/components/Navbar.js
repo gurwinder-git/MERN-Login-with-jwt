@@ -26,9 +26,6 @@ const navItems = [
 
 function Navbar() {
     let [isClicked, setIsClicked] = useState(false);
-    let activeLinkStyle = {
-        color: "white",
-    }
     return (
         <>
         <div className="navbar">

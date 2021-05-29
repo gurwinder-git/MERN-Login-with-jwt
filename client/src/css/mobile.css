@@ -30,7 +30,7 @@
         /* border: 1px solid black; */
         width: 100%;
     }
-
+ 
     .menu{
         display: block;
         color: darkslategrey;
@@ -42,6 +42,10 @@
     }
 
     #loginFormDiv form{
+        width: 95%;
+    }
+
+    #contactDiv{
         width: 95%;
     }
   }

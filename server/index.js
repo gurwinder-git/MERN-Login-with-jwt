@@ -6,7 +6,7 @@ import router from './routes/auth.js';
 const app = express();
 
 dotenv.config({path: './config.env'})
-const PORT = process.env.PORT;
+const PORT = process.env.PORT||4000;
 const url = process.env.URL;
 
 //mongoDB Connection
@@ -28,5 +28,5 @@ app.get('/about', middleware, (req, res)=>{
     res.send('about page');
 })
 
-app.listen(3000, ()=> console.log(`Server running on port ${PORT}`));
+app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`));
 
