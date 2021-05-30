@@ -82,3 +82,17 @@
 #contactDiv form div div label{
     color: #2a4646;
 }
+
+ul.errorMessage {
+    margin-left: 1.2em;
+    color: red;
+    margin-bottom: 1rem;
+}
+
+ul.successMessage {
+    color: green;
+    margin-bottom: 1em;
+    /* margin-left: 1.2em; */
+    padding: 1rem 2rem;
+    background-color: #00800040;
+}

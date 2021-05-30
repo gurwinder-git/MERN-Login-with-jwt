@@ -41,9 +41,15 @@ function Signup() {
             if(res.status === 422){
                 let error = await res.json()
                 setErrorMessage(error.error);
-            }else{
+            }
+            if(res.status === 201){
                 setErrorMessage('');
                 history.push("/login");
+            }
+            if(res.status === 500){
+                let error = await res.json()
+                // console.log(error)
+                setErrorMessage(error.error);
             }
         }
         catch(err){
@@ -56,22 +62,22 @@ function Signup() {
             <h2>User Registeration</h2>
             <form method = "POST">
                 <label htmlFor="name">Full Name<span style={starStyle}>*</span></label>
-                <input type="text" name="name" onChange={handleInput}/>
+                <input type="text" name="name" autoComplete="false" onChange={handleInput}/>
 
                 <label htmlFor="email">Email<span style={starStyle}>*</span></label>
-                <input type="email" name="email" onChange={handleInput}/>
+                <input type="email" name="email" autoComplete="false" onChange={handleInput}/>
 
                 <label htmlFor="phone">Phone<span style={starStyle}>*</span></label>
-                <input type="text" name="phone" onChange={handleInput}/>
+                <input type="text" name="phone" autoComplete="false" onChange={handleInput}/>
 
                 <label htmlFor="work">Work</label>
-                <input type="text" name="work" onChange={handleInput}/>
+                <input type="text" name="work" autoComplete="false" onChange={handleInput}/>
 
                 <label htmlFor="password">Password<span style={starStyle}>*</span></label>
-                <input type="password" name="passwordHash" onChange={handleInput}/>
+                <input type="password" autoComplete="false" name="passwordHash" onChange={handleInput}/>
 
                 <label htmlFor="conformPassword">Conform Password<span style={starStyle}>*</span></label>
-                <input type="password" name="conformPassword" onChange={handleInput}/>
+                <input type="password" autoComplete="false" name="conformPassword" onChange={handleInput}/>
 
                 {
                     errorMessage !== ''? <div id="errorMessageDiv">

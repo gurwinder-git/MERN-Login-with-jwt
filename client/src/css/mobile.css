@@ -48,4 +48,18 @@
     #contactDiv{
         width: 95%;
     }
+    #aboutDiv{
+        width: 95%;
+    }
+    .row div:first-of-type {
+        margin-right: .5rem;
+    }
+
+    #aboutDiv {
+        flex-direction: column;
+    }
+
+    #aboutDiv .cols:last-of-type {
+        margin-left: 0rem;
+    }
   }

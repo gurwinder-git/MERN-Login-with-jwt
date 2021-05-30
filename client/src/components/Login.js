@@ -47,10 +47,10 @@ function Login() {
             <h2>Login</h2>
             <form method = "POST">
                 <label htmlFor="email">Email<span style={starStyle}>*</span></label>
-                <input type="email" name="email" onChange = {handleInput}/>
+                <input type="email" autoComplete="false" name="email" onChange = {handleInput}/>
 
                 <label htmlFor="passwordHash">Password<span style={starStyle}>*</span></label>
-                <input type="password" name="passwordHash" onChange = {handleInput}/>
+                <input type="password" autoComplete="false" name="passwordHash" onChange = {handleInput}/>
 
                 { errorMessage !== ''? <div id="errorMessageForLoginUser">
                     <ul>

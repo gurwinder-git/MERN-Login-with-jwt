@@ -1,6 +1,7 @@
 import express from 'express';
 import User from '../models/userSchema.js';
 import bcrypt from 'bcrypt';
+import {authenticate} from '../middlewares/authenticate.js';
 
 const router = express.Router();
 
@@ -29,11 +30,17 @@ router.post('/register', async (req, res)=>{
             return res.status(422).json({error: "Email already Exit."});
             
         const user = new User({name, email, phone, work, passwordHash});
+        // console.log(user);
         const result = await user.save();
-        res.status(201).json({message: "user Craeted"})
+        // console.log(result);
+        if(result)
+            res.status(201).json({message: "user Craeted"})
+        else
+            res.status(422).json({error: "Some Error occured"})
+            
     }
     catch(err){
-        res.status(400).json({error: err.message});
+        res.status(500).json({error: "Internal Server Error"});
     }
 });
 
@@ -67,5 +74,31 @@ router.post('/login', async (req, res) => {
         res.status(400).json({error: err.message});
     }
 })
+
+router.get('/about', authenticate, (req, res)=>{
+    res.status(200).send(req.user);
+})
+
+router.get('/contact', authenticate, (req, res)=>{
+    res.status(200).send(req.user);
+})
+
+router.post('/contact', authenticate, async (req, res)=>{
+    let {message} = req.body;
+    try {
+        if(!message)
+            return res.status(422).json({error: `You can't send Empty Message.` });
+
+        let userWhereWeWantInsertMessage = req.user;
+        // console.log(userWhereWeWantInsertMessage)
+        res.status(200).json({message: 'message sent'});
+        
+    } catch (err) {
+        res.status(500).json({err});
+    }
+
+    // res.status(200).send(req.user);
+})
+
 
 export default router;

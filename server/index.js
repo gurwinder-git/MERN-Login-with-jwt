@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import router from './routes/auth.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -14,19 +15,10 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreat
 
 //middleware
 app.use(express.json());
-
-function middleware(req,res,next){
-    console.log('middelware');
-    next();
-}
+app.use(cookieParser());
 
 //End Points
-
 app.use('/',router)
-
-app.get('/about', middleware, (req, res)=>{
-    res.send('about page');
-})
 
 app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`));
 
