@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { useHistory } from 'react-router-dom';
 import '../css/login.css';
+import {UserContext} from '../App';
 
 const starStyle = {
     color: "red"
@@ -9,7 +10,10 @@ const starStyle = {
 function Login() {
     let history = useHistory();
     let [loginData, setLoginData] = useState({email: "", passwordHash: ""});
-    let [errorMessage, setErrorMessage] = useState('')
+    let [errorMessage, setErrorMessage] = useState('');
+
+    //use context
+    let {state, dispatch} = useContext(UserContext);
 
     let name, value;
     function handleInput(e){
@@ -20,6 +24,7 @@ function Login() {
 
     async function loginUser(e){
         e.preventDefault();
+        setErrorMessage('');
         try{
             let res = await fetch("/login", {
                 method: "POST",  
@@ -33,6 +38,8 @@ function Login() {
                 let error = await res.json()
                 setErrorMessage(error.error);
             }else{
+                dispatch({type: 'USER', payload: true})
+                console.log(state);
                 setErrorMessage('');
                 history.push("/");
             }

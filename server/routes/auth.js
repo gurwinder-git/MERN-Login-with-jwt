@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { response } from 'express';
 import User from '../models/userSchema.js';
 import bcrypt from 'bcrypt';
 import {authenticate} from '../middlewares/authenticate.js';
@@ -76,11 +76,19 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/about', authenticate, (req, res)=>{
-    res.status(200).send(req.user);
+    if(req.isLogin){
+        res.status(200).send(req.user);
+    }else{
+        res.status(401).send('Please Login...');
+    }
 })
 
 router.get('/contact', authenticate, (req, res)=>{
-    res.status(200).send(req.user);
+    if(req.isLogin){
+        res.status(200).json(req.user);
+    }else{
+        res.status(401).json({error: 'Unauthorized User'});
+    }
 })
 
 router.post('/contact', authenticate, async (req, res)=>{
@@ -90,8 +98,14 @@ router.post('/contact', authenticate, async (req, res)=>{
             return res.status(422).json({error: `You can't send Empty Message.` });
 
         let userWhereWeWantInsertMessage = req.user;
-        // console.log(userWhereWeWantInsertMessage)
-        res.status(200).json({message: 'message sent'});
+        let isSavedMessage = await userWhereWeWantInsertMessage.saveUserMessage(message);
+        if(isSavedMessage){
+            res.status(200).json({message: 'Message sent Successfully.'});
+        }
+        else{
+            return res.status(422).json({error: `Server Error.` });
+        }
+
         
     } catch (err) {
         res.status(500).json({err});
@@ -100,5 +114,10 @@ router.post('/contact', authenticate, async (req, res)=>{
     // res.status(200).send(req.user);
 })
 
+router.get('/logout', (req, res) => {
+    // console.log(req.cookies);
+    res.clearCookie('jwtoken', {path: '/'})
+    res.status(200).json({message: "ok"});
+})
 
 export default router;

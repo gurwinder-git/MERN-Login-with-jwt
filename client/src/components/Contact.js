@@ -60,6 +60,7 @@ function Contact() {
                 setErrorMessage('');
                 setSuccessMessage(data.message);
                 setUserMessage({message: ""});
+                setTimeout(clearSuccessMessage, 3000);
             }
     
             console.log(data)
@@ -67,6 +68,10 @@ function Contact() {
         catch(err){
             // console.log(err.message)
         }
+    }
+
+    function clearSuccessMessage(){
+        setSuccessMessage('');
     }
 
     useEffect(() => {
