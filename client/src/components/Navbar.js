@@ -5,7 +5,7 @@ import {UserContext} from '../App';
 
 
 function Navbar() {
-    let {state, dispatch} = useContext(UserContext);
+    let {state, dispatch, setUser} = useContext(UserContext);
     console.log(state)
     let history = useHistory();
 
@@ -17,7 +17,8 @@ function Navbar() {
             },
             credentials: 'include'
         }).then(res => {if(res.status === 200){ 
-            dispatch({type: 'USER', payload: false})
+            dispatch({type: 'USER', payload: false});
+            setUser({message: 'Please Login...'});
             history.push('/login');
 
         }})
@@ -51,14 +52,6 @@ function Navbar() {
                 <>   
                     <NavLink exact activeClassName = "active_class" to='/'>
                         <li>Home</li>
-                    </NavLink>
-
-                    <NavLink exact activeClassName = "active_class" to='/about'>
-                        <li>About</li>
-                    </NavLink>
-
-                    <NavLink exact activeClassName = "active_class" to='/contact'>
-                        <li>Contact</li>
                     </NavLink>
 
                     <NavLink exact activeClassName = "active_class" to='/login'>

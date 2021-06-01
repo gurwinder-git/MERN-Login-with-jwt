@@ -1,44 +1,47 @@
-import React, {useEffect, useState}from 'react';
+import React, {useEffect, useState, useContext}from 'react';
 import {useHistory} from 'react-router-dom';
 import '../css/about.css';
+import {UserContext} from '../App';
+
 
 function About() {
     const history = useHistory();
+    let {user} = useContext(UserContext);
+
     let [userData, setUserData] = useState({})
 
-    async function getUserData(){
-        // console.log("user data")
-        try {
-            let res = await fetch('/about', {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    "Content-Type": 'application/json'
-                },
-                credentials: 'include'
-            })
-            if(res.status === 200){
-                let data = await res.json();
-                setUserData(data);
-                // console.log(data)
-            }
-            if(res.status === 401){
-                history.push('/login');
-            }
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    // async function getUserData(){
+    //     // console.log("user data")
+    //     try {
+    //         let res = await fetch('/about', {
+    //             method: 'GET',
+    //             headers: {
+    //                 Accept: 'application/json',
+    //                 "Content-Type": 'application/json'
+    //             },
+    //             credentials: 'include'
+    //         })
+    //         if(res.status === 200){
+    //             let data = await res.json();
+    //             setUserData(data);
+    //             // console.log(data)
+    //         }
+    //         if(res.status === 401){
+    //             history.push('/login');
+    //         }
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
-    useEffect(() => {
-        getUserData();
-    }, [])
+    // useEffect(() => {
+    //     getUserData();
+    // }, [])
     return (<>
         <h2 id="heading">About Your</h2>
     
         <div id="aboutDiv">
-        {Object.keys(userData).length !== 0?
-        <>
+       
             <div className="cols">
                 <img src="https://picsum.photos/200/300" alt="avatar"/>
             </div>
@@ -54,7 +57,7 @@ function About() {
                             Id:
                         </div>
                         <div>
-                        {userData._id}
+                        {user._id}
                         </div>
                     </div>
                     <div className="row">
@@ -62,7 +65,7 @@ function About() {
                             Email:
                         </div>
                         <div>
-                        {userData.email}
+                        {user.email}
                         </div>
                     </div>
                     <div className="row">
@@ -70,12 +73,11 @@ function About() {
                             Phone:
                         </div>
                         <div>
-                        {userData.phone}
+                        {user.phone}
                         </div>
                     </div>
                 </div>
             </div>
-        </>: 'Please Wait...'}
         </div>
         </>
     )

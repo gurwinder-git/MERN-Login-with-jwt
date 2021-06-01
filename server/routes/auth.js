@@ -64,7 +64,7 @@ router.post('/login', async (req, res) => {
             res.cookie("jwtoken", token, {
                 expires: new Date(Date.now() + 25892000000),
                 httpOnly: true
-                }).status(200).json({message: "login successful"});
+                }).status(200).json(isUserEmailExist);
         }
         else{
             return res.status(400).json({error: "Invalid Credentials"});
@@ -118,6 +118,14 @@ router.get('/logout', (req, res) => {
     // console.log(req.cookies);
     res.clearCookie('jwtoken', {path: '/'})
     res.status(200).json({message: "ok"});
+})
+
+router.get('/userinfo', authenticate, (req, res) => {
+    if(req.isLogin){
+        res.status(200).json(req.user);
+    }else{
+        res.status(401).json({error: 'Unauthorized User'});
+    }
 })
 
 export default router;

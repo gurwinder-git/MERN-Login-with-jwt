@@ -13,7 +13,7 @@ function Login() {
     let [errorMessage, setErrorMessage] = useState('');
 
     //use context
-    let {state, dispatch} = useContext(UserContext);
+    let {state, dispatch, user, setUser} = useContext(UserContext);
 
     let name, value;
     function handleInput(e){
@@ -37,10 +37,14 @@ function Login() {
             if(res.status === 400){
                 let error = await res.json()
                 setErrorMessage(error.error);
-            }else{
+            }
+            if(res.status === 200){
+                let data = await res.json();
                 dispatch({type: 'USER', payload: true})
-                console.log(state);
+                // console.log(state);
                 setErrorMessage('');
+                setUser(data);
+                // console.log(user)
                 history.push("/");
             }
         }

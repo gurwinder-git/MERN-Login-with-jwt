@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import About from './components/About';
@@ -39,17 +39,46 @@ function App() {
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
-  // const [isLogedIn, setIsLogedIn] = useState(false)
 
-  return (<>
-    <div className="app">
-    <UserContext.Provider value={{state, dispatch}}>
-      <Navbar/>
-      <Routing/>
-    </UserContext.Provider>
-    </div>
-    <Footer/>
+  const [user, setUser] = useState({});
+
+  async function fetchUserData(){
+    let res = await fetch('/userinfo', {
+      method: 'GET',
+      headers: {
+          Accept: 'application/json',
+          "Content-Type": 'application/json'
+      },
+      credentials: 'include'
+  })
+  if(res.status === 200){
+    let userData = await res.json();
+    // console.log(data);
+    setUser(userData);
+    dispatch({type: 'USER', payload: true});
+  }
+  if(res.status === 401){
+    setUser({message: 'Please Login...'});
+    dispatch({type: 'USER', payload: false});
+  }
+  }
+
+  useEffect(() => {
+    fetchUserData();
+  }, [])
+  return (
+    Object.keys(user).length === 0 ?
+    'Wait a While...':
+    <>
+      <div className="app">
+      <UserContext.Provider value={{state, dispatch, user, setUser}}>
+        <Navbar/>
+        <Routing/>
+      </UserContext.Provider>
+      </div>
+      <Footer/>
     </>
+  
   );
 }
 
