@@ -13,18 +13,7 @@ import './css/mobile.css';
 
 let UserContext = createContext()
 
-function Routing(){
-  return(
-    <Switch>
-        <Route exact path = "/" component = {Home}/>
-        <Route exact path = "/about" component = {About}/>
-        <Route exact path = "/contact" component = {Contact}/>
-        <Route exact path = "/login" component = {Login}/>
-        <Route exact path = "/signup" component = {Signup}/>
-        <Route component = {ErrorPage}/>
-      </Switch>
-  )
-}
+
 
 function App() {
   const initialState = null;
@@ -38,8 +27,25 @@ function App() {
       return state;
   }
 
-  const [state, dispatch] = useReducer(reducer, initialState)
+  let [state, dispatch] = useReducer(reducer, initialState)
 
+  function Routing(){
+    return(
+        state? 
+          <Switch>
+            <Route exact path = "/" component = {Home}/>
+            <Route exact path = "/about" component = {About}/>
+            <Route exact path = "/contact" component = {Contact}/>
+            <Route component = {ErrorPage}/>
+          </Switch>:
+          <Switch>
+            <Route exact path = "/" component = {Home}/>
+            <Route exact path = "/login" component = {Login}/>
+            <Route exact path = "/signup" component = {Signup}/>
+            <Route component = {ErrorPage}/>
+          </Switch>
+    )
+  }
   const [user, setUser] = useState({});
 
   async function fetchUserData(){
@@ -81,6 +87,8 @@ function App() {
   
   );
 }
+
+
 
 export default App;
 export {UserContext};

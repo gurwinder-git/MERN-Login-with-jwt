@@ -10,19 +10,21 @@ function Navbar() {
     let history = useHistory();
 
     function logoutUser(){
-        fetch('/logout', {
-            method: 'GET',
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            credentials: 'include'
-        }).then(res => {if(res.status === 200){ 
-            dispatch({type: 'USER', payload: false});
-            setUser({message: 'Please Login...'});
-            history.push('/login');
-
-        }})
-        .catch(err => console.log(err))
+        if(window.confirm('Are you want to logout')){
+            fetch('/logout', {
+                method: 'GET',
+                headers: {
+                    "Content-Type": 'application/json'
+                },
+                credentials: 'include'
+            }).then(res => {if(res.status === 200){ 
+                dispatch({type: 'USER', payload: false});
+                setUser({message: 'Please Login...'});
+                history.push('/login');
+    
+            }})
+            .catch(err => console.log(err))
+        }
     }
 
     let [isClicked, setIsClicked] = useState(false);

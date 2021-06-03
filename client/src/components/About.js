@@ -48,8 +48,8 @@ function About() {
 
             <div className="cols">
                 <div id="bioDiv">
-                    <h3>{userData.name}</h3>
-                    <small>{userData.work}</small>
+                    <h3>{user.name}</h3>
+                    <small>{user.work}</small>
                 </div>
                 <div id="otherDetailesDiv">
                     <div className="row">
