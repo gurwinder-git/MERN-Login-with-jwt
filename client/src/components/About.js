@@ -44,7 +44,7 @@ function About() {
     // }, [])   
     let [avatar, setAvatar] = useState('');
     async function uploadAvatar(e){
-        console.log(avatar.size);
+        // console.log(avatar.size);
         setuploadError('');
         if(!avatar){
             setuploadError('Please select File.');
