@@ -6,11 +6,11 @@ import {UserContext} from '../App';
 
 function Navbar() {
     let {state, dispatch, setUser} = useContext(UserContext);
-    console.log(state)
+    // console.log(state)
     let history = useHistory();
 
     function logoutUser(){
-        if(window.confirm('Are you want to logout')){
+        if(window.confirm('Are you sure?')){
             fetch('/logout', {
                 method: 'GET',
                 headers: {
@@ -42,11 +42,11 @@ function Navbar() {
                     </NavLink>
 
                     <NavLink exact activeClassName = "active_class" to='/about'>
-                        <li>About</li>
+                        <li>Profile</li>
                     </NavLink>
 
                     <NavLink exact activeClassName = "active_class" to='/contact'>
-                        <li>Contact</li>
+                        <li>Contact Us</li>
                     </NavLink>
                     <a onClick={logoutUser} style={{cursor: 'pointer'}}><li>Logout</li></a>
                     

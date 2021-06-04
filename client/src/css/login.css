@@ -66,3 +66,9 @@
 #loginFormDiv form input:last-of-type{
     margin: 0;
 }
+
+#loginFormDiv form button:disabled{
+    background-color: rgb(133, 184, 226);
+    color: rgb(255, 255, 255);
+    cursor: auto;
+}

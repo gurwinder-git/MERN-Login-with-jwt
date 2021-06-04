@@ -2,13 +2,18 @@ import React, {useEffect, useState, useContext}from 'react';
 import {useHistory} from 'react-router-dom';
 import '../css/about.css';
 import {UserContext} from '../App';
+import axios from 'axios';
 
 
 function About() {
-    const history = useHistory();
-    let {user} = useContext(UserContext);
-
-    let [userData, setUserData] = useState({})
+    // const history = useHistory();
+    let {user, setUser} = useContext(UserContext);
+    console.log(user)
+    // let [profilePic, steProfilePic] = useState(user.avatarDetails.serverPath);
+    const [disabled, setDisabled] = useState(false);
+    const [btnValue, setBtnValue] = useState('Upload');
+    const [uploadError, setuploadError] = useState('');
+    // let [userData, setUserData] = useState({})
 
     // async function getUserData(){
     //     // console.log("user data")
@@ -36,14 +41,43 @@ function About() {
 
     // useEffect(() => {
     //     getUserData();
-    // }, [])
+    // }, [])   
+    let [avatar, setAvatar] = useState('');
+    async function uploadAvatar(e){
+        console.log(avatar.size);
+        setuploadError('');
+        if(!avatar){
+            setuploadError('Please select File.');
+            return false;
+        }
+        
+        if(avatar.size > 2097152){
+            setuploadError('Maximum File Size 2MB.');
+            return false;
+        }
+        setBtnValue('Please Wait...');
+        setDisabled(true);
+        let fd = new FormData();
+        fd.append('avatar', avatar);
+        let res = await axios.post('/uploadImage', fd);
+        // console.log(res)
+        setUser({...user, serverPath: res.data.dest});
+        setBtnValue('Upload');
+        setDisabled(false);
+        setAvatar('')
+        // console.log('user after midification:', user);
+    }
     return (<>
-        <h2 id="heading">About Your</h2>
+        <h2 id="heading">Profile</h2>
     
         <div id="aboutDiv">
        
-            <div className="cols">
-                <img src="https://picsum.photos/200/300" alt="avatar"/>
+            <div className="cols dp">
+                <img src={user.serverPath? user.serverPath: 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'} alt="avatar"/>
+                <h4>Change Profile</h4>
+                <input type="file" name="avatar" id="avatar" onChange={(e)=>setAvatar(e.target.files[0])}/>
+                <small>{uploadError}</small>
+                <button onClick={uploadAvatar} disabled={disabled}>{btnValue}</button>
             </div>
 
             <div className="cols">

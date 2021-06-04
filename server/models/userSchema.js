@@ -36,6 +36,18 @@ const userSchema = new mongoose.Schema({
             }
         }
     ],
+    avatarDetails: {
+        destination: {
+            type: String,
+        },
+        fileName: {
+            type: String,
+        },
+        
+    },
+    serverPath: {
+        type: String,
+    },
     tokens: [{
         token: {
             type: String,
@@ -81,6 +93,26 @@ userSchema.methods.saveUserMessage = async function(message){
         // console.log(result)
         if(result){
             return true;
+        }else{
+            return false;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+userSchema.methods.saveAvatarPath = async function(destination, fileName){
+    try {
+
+        // console.log(this);
+        this.avatarDetails.destination = destination;
+        this.avatarDetails.fileName = fileName;
+        this.serverPath = `http://localhost:4000/${fileName}`;
+        // console.log(this)
+        let result = await this.save();
+        // console.log(result)
+        if(result){
+            return result;
         }else{
             return false;
         }

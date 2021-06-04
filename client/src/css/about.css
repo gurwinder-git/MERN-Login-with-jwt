@@ -38,7 +38,7 @@
 }
 
 #aboutDiv .cols:first-of-type{
-    border-right: 1px solid rgb(212, 212, 212);
+    /* border-right: 1px solid rgb(212, 212, 212); */
     padding-right: 1rem;
 }
 
@@ -53,5 +53,46 @@
     margin-left: 1rem;
 }
 .cols{
+    display: flex;
+    flex-direction: column;
     color: #505050;
+}
+
+#avatar{
+    margin: 1em 0em;
+}
+.cols.dp {
+    max-width: 12rem;
+}
+
+.cols.dp input {
+    border: 1px solid darkgrey;
+    padding: .5em;
+}
+
+.dp button {
+    border: none;
+    padding: .5em;
+    background: steelblue;
+    font-size: medium;
+    color: aliceblue;
+    cursor: pointer;
+    border-radius: .3rem;
+    outline: none;
+}
+
+.dp button:hover{
+    background-color: rgb(52, 111, 158);
+    transition: 200ms background-color ;
+}
+
+.dp small {
+    margin-bottom: 1em;
+    color: red;
+}
+
+.dp button:disabled{
+    background-color: rgb(133, 184, 226);
+    color: rgb(255, 255, 255);
+    cursor: auto;
 }

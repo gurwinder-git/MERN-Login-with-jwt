@@ -12,7 +12,7 @@ function Footer() {
     }
     return (
         <div style = {footerStyle}>
-            All Rights Are Reserved
+            Created by Gurwinder Singh
         </div>
     )
 }

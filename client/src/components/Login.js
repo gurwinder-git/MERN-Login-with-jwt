@@ -11,6 +11,8 @@ function Login() {
     let history = useHistory();
     let [loginData, setLoginData] = useState({email: "", passwordHash: ""});
     let [errorMessage, setErrorMessage] = useState('');
+    let [disabled, setDisabled] = useState(false);
+    let [btnValue, setBtnValue] = useState('Login');
 
     //use context
     let {state, dispatch, user, setUser} = useContext(UserContext);
@@ -26,6 +28,8 @@ function Login() {
         e.preventDefault();
         setErrorMessage('');
         try{
+            setDisabled(true);
+            setBtnValue('Please Wait...');
             let res = await fetch("/login", {
                 method: "POST",  
                 headers: {
@@ -37,12 +41,16 @@ function Login() {
             if(res.status === 400){
                 let error = await res.json()
                 setErrorMessage(error.error);
+                setDisabled(false);
+                setBtnValue('Login');
             }
             if(res.status === 200){
                 let data = await res.json();
                 dispatch({type: 'USER', payload: true})
                 // console.log(state);
                 setErrorMessage('');
+                setDisabled(false);
+                setBtnValue('Login');
                 setUser(data);
                 // console.log(user)
                 history.push("/");
@@ -69,7 +77,7 @@ function Login() {
                     </ul>
                 </div>: ''}
 
-                <button onClick = {loginUser}> Login </button>
+                <button disabled={disabled} onClick = {loginUser}> {btnValue} </button>
             </form>
         </div>
     )

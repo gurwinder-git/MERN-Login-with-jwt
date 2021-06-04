@@ -62,4 +62,10 @@
     #aboutDiv .cols:last-of-type {
         margin-left: 0rem;
     }
+
+    .cols.dp {
+        max-width: 12rem;
+        margin: auto;
+        /* border: none; */
+    }
   }

@@ -2,6 +2,9 @@ import express, { response } from 'express';
 import User from '../models/userSchema.js';
 import bcrypt from 'bcrypt';
 import {authenticate} from '../middlewares/authenticate.js';
+import path from "path";
+import fs from 'fs';
+const __dirname = path.resolve();
 
 const router = express.Router();
 
@@ -123,6 +126,42 @@ router.get('/logout', (req, res) => {
 router.get('/userinfo', authenticate, (req, res) => {
     if(req.isLogin){
         res.status(200).json(req.user);
+    }else{
+        res.status(401).json({error: 'Unauthorized User'});
+    }
+})
+
+router.post('/uploadImage', authenticate, async (req, res) => {
+    if(req.isLogin){
+        // console.log(req.files)
+        let fileName = req.userId+req.files.avatar.name;
+        let destination = __dirname+'/uploads/'+fileName;
+        // console.log(__dirname);
+        let userData = req.user;
+        let previousAvatarPath = userData.avatarDetails.destination;
+        // console.log(previousAvatarPath);
+
+        try{
+            if(previousAvatarPath){
+                fs.unlinkSync(previousAvatarPath);
+            }
+        }catch(err){
+            console.log(err);
+        }
+
+        let result = await userData.saveAvatarPath(destination, fileName);
+        if(result){
+            // console.log(result);
+            req.files.avatar.mv(destination, (err)=>{
+                if(err){
+                    return console.log(err);
+                }
+            })
+            res.status(200).json({dest: result.serverPath});
+        }
+        else{
+            console.log('error ocurred');
+        }
     }else{
         res.status(401).json({error: 'Unauthorized User'});
     }

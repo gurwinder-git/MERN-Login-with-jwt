@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import router from './routes/auth.js';
 import cookieParser from 'cookie-parser';
+import fileUpload from 'express-fileupload'; 
 
 const app = express();
 
@@ -16,6 +17,8 @@ mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, useCreat
 //middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileUpload());
+app.use(express.static('uploads'));
 
 //End Points
 app.use('/',router)

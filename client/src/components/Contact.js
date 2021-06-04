@@ -8,6 +8,8 @@ function Contact() {
     let [userMessage, setUserMessage] = useState({message: ""});
     let [errorMessage, setErrorMessage] = useState('');
     let [successMessage, setSuccessMessage] = useState('');
+    let [disabled, setDisabled] = useState(false);
+    let [btnValue, setBtnValue] = useState('Send Message');
 
     async function getUserData(){
         // console.log("user data")
@@ -39,6 +41,9 @@ function Contact() {
 
     async function postMessage(e) {
         e.preventDefault();
+        setDisabled(true);
+        setErrorMessage('');
+        setBtnValue('Sending Message...');
         // console.log('button clicked')
         try{
             let res = await fetch("/contact", {
@@ -54,19 +59,23 @@ function Contact() {
             if(res.status === 422){
                 setErrorMessage(data.error);
                 setSuccessMessage('');
-                console.log(data);
+                setDisabled(false);
+                setBtnValue('Send Message');
+                // console.log(data);
             }
             if(res.status === 200){
                 setErrorMessage('');
                 setSuccessMessage(data.message);
                 setUserMessage({message: ""});
                 setTimeout(clearSuccessMessage, 3000);
+                setDisabled(false);
+                setBtnValue('Send Message');
             }
     
             console.log(data)
         }
         catch(err){
-            // console.log(err.message)
+            console.log(err.message)
         }
     }
 
@@ -108,7 +117,7 @@ function Contact() {
                     <li>{successMessage}</li>
                 </ul>: ''}
                 
-                <button onClick={postMessage}> Send Message </button>
+                <button disabled={disabled} onClick={postMessage}>{btnValue}</button>
             </form>
         </div>
     )

@@ -96,3 +96,9 @@ ul.successMessage {
     padding: 1rem 2rem;
     background-color: #00800040;
 }
+
+#contactDiv form button:disabled{
+    background-color: rgb(133, 184, 226);
+    color: rgb(255, 255, 255);
+    cursor: auto;
+}

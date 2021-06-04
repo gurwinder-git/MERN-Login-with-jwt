@@ -72,3 +72,9 @@
     margin: 0;
 }
 
+
+#signupFormDiv form button:disabled{
+    background-color: rgb(133, 184, 226);
+    color: rgb(255, 255, 255);
+    cursor: auto;
+}

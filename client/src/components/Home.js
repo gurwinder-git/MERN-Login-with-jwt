@@ -44,7 +44,7 @@ function Home() {
     return (
         <div style = {homeStyle}>
             {/* <p style={{textTransform: 'uppercase'}}>{greet === ''? '': greet }</p> */}
-            <p style={{fontSize: 'xx-large'}}>{user.name !== undefined? user.name: 'Login Please...'}</p>
+            <p style={{fontSize: 'xx-large'}}>{user.name !== undefined? <>Welcome:) <br/>{user.name}</>: 'Login Please...'}</p>
         </div>
     )
 }

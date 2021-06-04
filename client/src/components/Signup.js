@@ -9,6 +9,8 @@ const starStyle = {
 function Signup() {
     let history = useHistory();
     let [errorMessage, setErrorMessage] = useState('');
+    let [disabled, setDisabled] = useState(false);
+    let [btnValue, setBtnValue] = useState('Register');
 
     let [data, setData] = useState({
         name: "",
@@ -28,7 +30,9 @@ function Signup() {
 
     async function postUser(e) {
         e.preventDefault();
-
+        setErrorMessage('');
+        setBtnValue('Please Wait...');
+        setDisabled(true);
         try{
             let res = await fetch("/register", {
                 method: "POST",  
@@ -41,15 +45,21 @@ function Signup() {
             if(res.status === 422){
                 let error = await res.json()
                 setErrorMessage(error.error);
+                setBtnValue('Register');
+                setDisabled(false);
             }
             if(res.status === 201){
                 setErrorMessage('');
                 history.push("/login");
+                setBtnValue('Register');
+                setDisabled(false);
             }
             if(res.status === 500){
                 let error = await res.json()
                 // console.log(error)
                 setErrorMessage(error.error);
+                setBtnValue('Register');
+                setDisabled(false);
             }
         }
         catch(err){
@@ -87,7 +97,7 @@ function Signup() {
                 </div>: ''
                 }
                 
-                <button onClick = {postUser}> Register </button>
+                <button onClick = {postUser} disabled={disabled}> {btnValue} </button>
             </form>
         </div>
     )
